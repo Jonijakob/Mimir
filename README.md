@@ -1,1 +1,1 @@
-this app that can control smart devices bob new
+this app that can control smart devices
