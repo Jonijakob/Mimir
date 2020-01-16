@@ -1,0 +1,2 @@
+FLASK_APP=Mimir
+FLASK_ENVIRONMENT=devlopment
