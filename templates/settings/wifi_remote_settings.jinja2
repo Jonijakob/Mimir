@@ -12,8 +12,9 @@
 {% set group_n =gorup_name%}
     {% if 'forms2' in gorup_setting_tab %}
         <script>
-          $( "#"+{{ group_n|join(", ")}}+"forms2").draggable({ containment: "containment-wrapper2", scroll: false ,snap: true,cursor: "move" });   
-          $( "#"+{{ group_n|join(", ")}}+"forms2").resizable();
+          var s="{{ group_n}}"
+          $( "#"+s+"_"+"forms2").draggable({ containment: "containment-wrapper2", scroll: false ,snap: true,cursor: "move" });   
+          $( "#"+s+"_"+"forms2").resizable();
         </script>
     {% endif %}
 
