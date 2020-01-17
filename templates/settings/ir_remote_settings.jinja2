@@ -5,7 +5,15 @@
   <input name="bobi" id="forms" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
 </div>
 <div id="containment-wrapper">
-{% set another = t %}
+{% set another = ir_settings_page_store %}
 {{ another }}
+{% set group_n = gorup_name %}
+    {% if 'forms' in gorup_setting_tab %}
+        <script>
+          $( "#"+{{ group_n|join(", ")}}+"forms").draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" });   
+          $( "#"+{{ group_n|join(", ")}}+"forms").resizable();
+        </script>
+    {% endif %}
+
 </div>
 </div>
