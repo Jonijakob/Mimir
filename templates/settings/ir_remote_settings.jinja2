@@ -7,14 +7,10 @@
 <div id="containment-wrapper">
 {% set another = ir_settings_page_store %}
 {{ another }}
-{% set group_n = gorup_name %}
-    {% if 'forms' in gorup_setting_tab %}
-        <script>
-          var s="{{ group_n}}"
-          $( "#"+s+"_"+"forms").draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" });   
-          $( "#"+s+"_"+"forms").resizable();
-        </script>
-    {% endif %}
-
 </div>
+        {% set group_n = ir_settings_data %} 
+        <script>
+          var push_Ir_value="{{ group_n}}"
+        </script>
+
 </div>

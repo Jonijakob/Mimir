@@ -9,16 +9,11 @@
 <div id="containment-wrapper2">
 {% set another = wifi_settings_page_store %}
 {{ another }}
-{% set group_n =gorup_name%}
-    {% if 'forms2' in gorup_setting_tab %}
-        <script>
-          var s="{{ group_n}}"
-          $( "#"+s+"_"+"forms2").draggable({ containment: "containment-wrapper2", scroll: false ,snap: true,cursor: "move" });   
-          $( "#"+s+"_"+"forms2").resizable();
-        </script>
-    {% endif %}
-
 </div>
+{% set group_n2 =wifi_settings_data%}
+      <script>
+       var push_wifi_value="{{ group_n2}}"
+      </script>
 </div>
 </div>
         

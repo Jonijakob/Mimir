@@ -1,7 +1,17 @@
- 
+
     var Ir_value=[];
   var wifi_value=[];
+  Ir_value=push_Ir_value.split(" ");
+  wifi_value=push_wifi_value.split(" ");
+  console.log(push_Ir_value[1]);
+  /*
+    $( "#"+ir_id_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" });   
+    $( "#"+ir_id_name+"_forms" ).resizable();
   
+  
+    $( "#"+wifi_id_name+"_forms" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move" });   
+    $( "#"+wifi_id_name+"_forms" ).resizable();
+  */
   function sumbitcommand(forms_name,warper){
     var value_input = document.getElementById(forms_name).value;
     if(value_input!=""){
