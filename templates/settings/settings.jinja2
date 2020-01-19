@@ -1,12 +1,12 @@
 
 <style>
-.draggable { width: 90px; height: 90px; padding: 0.5em; float: left; margin: 0 10px 10px 0; }
+  .ui-widget-content { width: 90px; height: 90px; padding: 0.5em; float: left; margin: 0 10px 10px 0; }
   #containment-wrapper { width: 95%; height:500px; border:2px solid #ccc; padding: 10px; }
   #containment-wrapper2 { width: 95%; height:500px; border:2px solid #ccc; padding: 10px; }
   h3 { clear: left; }
   </style>
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <form action="/" method="post">
+  <form action="/" onsubmit="return updatepage('containment-wrapper','containment-wrapper2')">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -40,5 +40,5 @@
 
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
   <script src="{{ url_for('static', filename='js/settings.js') }}"></script>

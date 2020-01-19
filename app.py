@@ -20,6 +20,7 @@ def index():
     group_data=mydb["group_data"]
     if request.method == 'POST':
             #get the data from the settings.script
+        if request.form.get("status")=="creat":
             forms_id_input = request.form.get("forms_id")
             body = request.form.get("group_html")
             name = request.form.get("name")
@@ -47,11 +48,29 @@ def index():
             """
             send_group_data={"name":name,"setting_tab":forms_id_input}
             group_data.insert_one(send_group_data)
+        elif request.form.get("status")=="update":
+            TAB_IR=request.form.get("TAB_IR")
+            TAB_WIFI=request.form.get("TAB_WIFI")
+            update_web_data={"$set": { "ir_settings_page_store":TAB_IR,"wifi_settings_page_store":TAB_WIFI} }
+            update_old_value=web_data.find_one({},{ "_id": 0})
+            web_data.update_one(update_old_value,update_web_data)
+            return redirect('/?submit', code=302)
     #render the dom if there is a data
     if mydb.list_collection_names():
-        for data_web_back in web_data.find({},{ "_id": 0, "ir_settings_page_store": 1,"wifi_settings_page_store":1}):
-            for data_group_back in group_data.find({},{"_id": 0,"name":1,"setting_tab":1}):
-                return render_template('index.jinja2',ir_settings_page_store=data_web_back["ir_settings_page_store"],wifi_settings_page_store=data_web_back["wifi_settings_page_store"],gorup_name=data_group_back["name"],gorup_setting_tab=data_group_back["setting_tab"])
+        data_web_back=web_data.find_one()
+        ir_settings_data=[]
+        wifi_settings_data=[]
+        for data_group_back in group_data.find({},{ "_id": 0, "setting_tab": 1, "name": 1 }):
+            if data_group_back["setting_tab"]=="forms":
+                ir_settings_data.append(data_group_back["name"])
+            elif data_group_back["setting_tab"]=="forms2":
+                wifi_settings_data.append(data_group_back["name"])
+        if bool(data_web_back)==True or bool(ir_settings_data)==True  or bool(wifi_settings_data)==True :     
+            return render_template('index.jinja2',
+            ir_settings_page_store=data_web_back["ir_settings_page_store"],
+            wifi_settings_page_store=data_web_back["wifi_settings_page_store"],
+            ir_settings_data=ir_settings_data,
+            wifi_settings_data=wifi_settings_data)
         
             
     return render_template('index.jinja2')
