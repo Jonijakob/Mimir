@@ -72,11 +72,21 @@
             $.ajax({
             type: "POST",
             url: "http://10.0.0.23:5000/",
-            data: {forms_id:forms_name,group_html:body,name:e} // made into a hash for retrieval
+            data: {status:"creat",forms_id:forms_name,group_html:body,name:e} // made into a hash for retrieval
     });
               
             
-  }};
+    }};
+  function updatepage(ir_tab,wifi_tab){
+    tab_ir=$( "#"+ir_tab).html();
+    tab_wifi=$( "#"+wifi_tab).html();
+    $.ajax({
+      type: "POST",
+      url: "http://10.0.0.23:5000/",
+      data: {status:"update",TAB_IR:tab_ir,TAB_WIFI:tab_wifi}
+      });
+     
+  };
 
  /* $('#add').click(function() {
     myhtml = $("#containment-wrapper").html();
