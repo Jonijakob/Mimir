@@ -7,15 +7,15 @@
   //if (typeof push_wifi_value != 'undefined') {
   wifi_value=push_wifi_value;
 //}
+    $("div.ui-resizable-handle").remove(),
+    $("div.ui-resizable-n").remove(),
   Ir_value.forEach(function(ir_name){
-    $( "#"+ir_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" });   
+    $( "#"+ir_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" }),
     $( "#"+ir_name+"_forms" ).resizable();
-    
   });
   wifi_value.forEach(function(wifi_name){
-    $( "#"+wifi_name+"_forms2" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move" });   
+    $( "#"+wifi_name+"_forms2" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move" }),  
     $( "#"+wifi_name+"_forms2" ).resizable();
-    
   });
   function sumbitcommand(forms_name,warper){
     var value_input = document.getElementById(forms_name).value;
@@ -58,7 +58,11 @@
                         div.setAttributeNode(set_class);
                         div.setAttribute("style","position: absolute; left: 955px; top: 124px;");
                         document.getElementById(warper).appendChild(div);
-       var p = document.createElement("p");                 
+                        var set_class2 = document.createAttribute("class");
+                        set_class2.value ="ui-resizable";
+                       
+       var p = document.createElement("p");
+       p.setAttributeNode(set_class2);               
                   p.innerHTML=e; 
                   document.getElementById(e+"_"+forms_name).appendChild(p);
             

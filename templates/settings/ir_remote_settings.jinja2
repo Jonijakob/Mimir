@@ -8,10 +8,10 @@
 {% set another = ir_settings_page_store %}
 {{ another }}
 </div>
-    
+    {% if ir_settings_data %}
         <script>
           var push_Ir_value=JSON.parse('{{ ir_settings_data | tojson | safe}}');
         </script>
-    
+    {% endif %}
 
 </div>

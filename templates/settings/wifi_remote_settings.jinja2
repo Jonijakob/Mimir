@@ -10,11 +10,12 @@
 {% set another = wifi_settings_page_store %}
 {{ another }}
 </div>
-
+{% if wifi_settings_data %}
+ 
       <script>
        var push_wifi_value = JSON.parse('{{ wifi_settings_data | tojson | safe}}');
       </script>
-     
+{% endif %}   
 </div>
 </div>
         

@@ -57,12 +57,12 @@ def index():
                 ir_settings_data.append(data_group_back["name"])
             elif data_group_back["setting_tab"]=="forms2":
                 wifi_settings_data.append(data_group_back["name"])
-                
-        return render_template('index.jinja2',
-        ir_settings_page_store=data_web_back["ir_settings_page_store"],
-        wifi_settings_page_store=data_web_back["wifi_settings_page_store"],
-        ir_settings_data=ir_settings_data,
-        wifi_settings_data=wifi_settings_data)
+        if bool(data_web_back)==True or bool(ir_settings_data)==True  or bool(wifi_settings_data)==True :     
+            return render_template('index.jinja2',
+            ir_settings_page_store=data_web_back["ir_settings_page_store"],
+            wifi_settings_page_store=data_web_back["wifi_settings_page_store"],
+            ir_settings_data=ir_settings_data,
+            wifi_settings_data=wifi_settings_data)
         
             
     return render_template('index.jinja2')
