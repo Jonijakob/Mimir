@@ -54,7 +54,7 @@ def index():
             update_web_data={"$set": { "ir_settings_page_store":TAB_IR,"wifi_settings_page_store":TAB_WIFI} }
             update_old_value=web_data.find_one({},{ "_id": 0})
             web_data.update_one(update_old_value,update_web_data)
-        return redirect('/?submit', code=302)
+            return redirect('/?submit', code=302)
     #render the dom if there is a data
     if mydb.list_collection_names():
         data_web_back=web_data.find_one()
