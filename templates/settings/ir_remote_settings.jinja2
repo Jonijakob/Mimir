@@ -8,9 +8,10 @@
 {% set another = ir_settings_page_store %}
 {{ another }}
 </div>
-        {% set group_n = ir_settings_data %} 
+    
         <script>
-          var push_Ir_value="{{ group_n}}"
+          var push_Ir_value=JSON.parse('{{ ir_settings_data | tojson | safe}}');
         </script>
+    
 
 </div>

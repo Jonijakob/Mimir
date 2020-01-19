@@ -1,17 +1,22 @@
 
     var Ir_value=[];
   var wifi_value=[];
-  Ir_value=push_Ir_value.split(" ");
-  wifi_value=push_wifi_value.split(" ");
-  console.log(push_Ir_value[1]);
-  /*
-    $( "#"+ir_id_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" });   
-    $( "#"+ir_id_name+"_forms" ).resizable();
-  
-  
-    $( "#"+wifi_id_name+"_forms" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move" });   
-    $( "#"+wifi_id_name+"_forms" ).resizable();
-  */
+  //if (typeof push_Ir_value != 'undefined') {
+    Ir_value=push_Ir_value;
+  //}
+  //if (typeof push_wifi_value != 'undefined') {
+  wifi_value=push_wifi_value;
+//}
+  Ir_value.forEach(function(ir_name){
+    $( "#"+ir_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" });   
+    $( "#"+ir_name+"_forms" ).resizable();
+    
+  });
+  wifi_value.forEach(function(wifi_name){
+    $( "#"+wifi_name+"_forms2" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move" });   
+    $( "#"+wifi_name+"_forms2" ).resizable();
+    
+  });
   function sumbitcommand(forms_name,warper){
     var value_input = document.getElementById(forms_name).value;
     if(value_input!=""){
@@ -47,7 +52,7 @@
         
         var div = document.createElement("div");
                         var set_class = document.createAttribute("class");
-                        set_class.value ="draggable ui-widget-content";
+                        set_class.value ="ui-widget-content";
                         div.setAttribute("id",e+"_"+forms_name);
                         div.setAttribute("name",e+"_"+forms_name);
                         div.setAttributeNode(set_class);

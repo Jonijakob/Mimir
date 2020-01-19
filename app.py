@@ -57,6 +57,7 @@ def index():
                 ir_settings_data.append(data_group_back["name"])
             elif data_group_back["setting_tab"]=="forms2":
                 wifi_settings_data.append(data_group_back["name"])
+                
         return render_template('index.jinja2',
         ir_settings_page_store=data_web_back["ir_settings_page_store"],
         wifi_settings_page_store=data_web_back["wifi_settings_page_store"],
