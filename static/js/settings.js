@@ -50,22 +50,19 @@
         e=wifi_value[wifi_value.length-1];
       }
         
-        var div = document.createElement("div");
-                        var set_class = document.createAttribute("class");
-                        set_class.value ="ui-widget-content";
-                        div.setAttribute("id",e+"_"+forms_name);
-                        div.setAttribute("name",e+"_"+forms_name);
-                        div.setAttributeNode(set_class);
-                        div.setAttribute("style","position: absolute; left: 955px; top: 124px;");
-                        document.getElementById(warper).appendChild(div);
-                        var set_class2 = document.createAttribute("class");
-                        set_class2.value ="ui-resizable";
-                       
-       var p = document.createElement("p");
-       p.setAttributeNode(set_class2);               
-                  p.innerHTML=e; 
-                  document.getElementById(e+"_"+forms_name).appendChild(p);
-            
+       
+      $("#"+warper).append(
+        $('<div/>')
+          .attr("id", e+"_"+forms_name)
+          .attr("style","position: absolute; left: 955px; top: 124px;")
+          .addClass("ui-widget-content")
+            .append($("<div/>").attr("id",e+"_button_group_"+forms_name).addClass("float-right btn-group btn-group-sm").attr("role","group")
+            .append($("<button/>").attr("id",e+"_button"+forms_name).addClass("btn btn-secondary")
+            .append($("<i/>").addClass("fa fa-bars")),
+            $("<button/>").attr("id",e+"_button"+forms_name).addClass("btn btn-secondary")
+            .append($("<i/>").addClass("fa fa-trash"))
+            ),$("<h3/>")
+            .append($("<span/>").addClass("badge badge-secondary").text(e)),));
             $( "#"+e+"_"+forms_name ).draggable({ containment: "#"+warper, scroll: false ,snap: true,cursor: "move" });   
             $( "#"+e+"_"+forms_name ).resizable();
             body = $( "#"+e+"_"+forms_name ).parent().html();
