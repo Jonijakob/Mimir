@@ -55,6 +55,13 @@ def index():
             update_old_value=web_data.find_one({},{ "_id": 0})
             web_data.update_one(update_old_value,update_web_data)
             return redirect('/?submit', code=302)
+        elif request.form.get("status")=="remove":
+            remove_web_data={"$set": { "ir_settings_page_store":request.form.get("ir_up"),"wifi_settings_page_store":request.form.get("wifi_up")} }
+            remove_old_value=web_data.find_one({},{ "_id": 0})
+            web_data.update_one(remove_old_value,remove_web_data)
+            group_data.delete_many({"setting_tab":request.form.get("forms_n"),"name":request.form.get("obj_name")})
+            return redirect('/?submit', code=302)
+             
     #render the dom if there is a data
     if mydb.list_collection_names():
         data_web_back=web_data.find_one()
