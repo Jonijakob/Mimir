@@ -1,7 +1,7 @@
 
     var Ir_value=[];
   var wifi_value=[];
-  //if (typeof push_Ir_value != 'undefined') {
+  //if (typeof push_Ir_value != 'undefined') 
     Ir_value=push_Ir_value;
   //}
   //if (typeof push_wifi_value != 'undefined') {
