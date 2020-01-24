@@ -57,7 +57,7 @@
       render(warper,e,forms_name);   
        $( "#"+e+"_"+forms_name ).draggable({ containment: "#"+warper, scroll: false ,snap: true,cursor: "move" });   
        $( "#"+e+"_"+forms_name ).resizable({minHeight: 118,
-        minWidth: 116});
+        minWidth: 215});
         
 /*
        body = $( "#"+e+"_"+forms_name ).parent().html();
@@ -95,11 +95,11 @@
     $('<div/>')
       .attr({
         id: input_value+"_"+what_form,
-        style:"position: absolute; left: 955px; top: 124px;",
+        style:"position: absolute; left: 806px; top: 125px;",
         class:"ui-widget-content"})
       .append(
         $("<div/>").attr("id",input_value+"_tool_bar_"+what_form)
-          .append(
+          .append($("<span/>").addClass("badge badge-secondary").text(input_value),
             $("<div/>").attr({
               id: input_value+"_button_group_"+what_form,
               class:"float-right btn-group btn-group-sm",
@@ -115,13 +115,17 @@
               $("<button/>").attr({
                   id: input_value+"_button_remove"+what_form,
                   onclick:"remove_group('"+input_value+"_"+what_form+"','"+input_value+"','"+what_form+"')",
-                  class:"btn btn-secondary"}).append($("<i/>").addClass("fa fa-trash"))),
-              $("<span/>").addClass("badge badge-secondary").text(input_value),
-              $("<div/>").attr({
-                class: "collapse",
-                id: input_value+"_collapse_"+what_form
-              }).append($("<div/>").addClass("card card-body").append(create_group_form(input_value,what_form,input_value+"_tool_bar_"+what_form))
-              )
+                  class:"btn btn-secondary"}).append($("<i/>").addClass("fa fa-trash")),
+                  $("<div/>").attr({
+                    class: "collapse",
+                    id: input_value+"_collapse_"+what_form,
+                    style: "width: 109px; height: 50px; padding: 0em ;margin-center: 50px;"
+                  }).append($("<div/>").addClass("card card-body").attr({
+                    style: "width: 108px; height: 50px; padding: 0.5em ;"
+                  }).append(create_group_form(input_value,what_form,input_value+"_"+what_form))
+                  ))
+              
+              
 
             
           )   
@@ -130,17 +134,18 @@
  };
  function create_group_form(name,form,box){
   return $("<form/>").addClass("form-inline").append(
-            $("<div/>").addClass(name+"group"+form+" mb-2").append(
+            $("<div/>").addClass(name+"group"+form+" mb-1")
+            .append(
               $("<input/>").attr({
                 type: "text",
-                class: "form-control",
-                id: name+"group"+form+"_input"
+                class: "form-control form-control-sm",
+                id: name+"group"+form+"_input",
+                style: "width: 90px; height: 30px; padding: 0.5em ;"
               }),$("<button/>").attr({
                 type: "button",
-                class: "btn btn-primary mb-2",
-                text: "Add button",
+                class: "btn btn-primary btn-sm mb-1",
                 onclick: "create_buttons('"+box+"','"+name+"group"+form+"_input')"
-              })
+              }).prepend("Add button")
             )
 
   );
@@ -155,9 +160,8 @@
   .append($("<button/>").attr({
     id: button_id,
     class:"btn btn-primary",
-    type:"button",
-    text:button_id
-    })
+    type:"button"
+    }).prepend(button_id)
   )
   );
       $( "#"+button_id+"box" ).draggable({ containment: "#"+box_name, scroll: false ,snap: true,cursor: "move" });   
