@@ -10,12 +10,12 @@
     $("div.ui-resizable-handle").remove(),
     $("div.ui-resizable-n").remove(),
   Ir_value.forEach(function(ir_name){
-    $( "#"+ir_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" }),
+    $( "#"+ir_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move",revert: "valid"}),
     $( "#"+ir_name+"_forms" ).resizable({minHeight: 118,
       minWidth: 116});
   });
   wifi_value.forEach(function(wifi_name){
-    $( "#"+wifi_name+"_forms2" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move" }),  
+    $( "#"+wifi_name+"_forms2" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move",revert: "valid"}),  
     $( "#"+wifi_name+"_forms2" ).resizable({minHeight: 118,
       minWidth: 116});
   });
@@ -55,9 +55,14 @@
        
       
       render(warper,e,forms_name);   
-       $( "#"+e+"_"+forms_name ).draggable({ containment: "#"+warper, scroll: false ,snap: true,cursor: "move" });   
+       $( "#"+e+"_"+forms_name ).draggable({ containment: "#"+warper, scroll: false ,snap: true,cursor: "move",revert: "valid"});   
        $( "#"+e+"_"+forms_name ).resizable({minHeight: 118,
         minWidth: 215});
+        $( "#"+e+"_"+forms_name ).droppable({
+          classes: {
+            "ui-droppable-hover": "ui-state-hover"
+          }});
+        
         
 /*
        body = $( "#"+e+"_"+forms_name ).parent().html();
@@ -107,7 +112,7 @@
             .append(
               $("<button/>").attr({
                   id: input_value+"_button_edit"+what_form,
-                  class:"btn btn-primary",
+                  class:"btn btn-secondary",
                   type:"button"
                   }).attr("data-toggle","collapse").attr("data-target","#"+input_value+"_collapse_"+what_form).attr("aria-expandeda-","false")
                     .attr("aria-controls",input_value+"_collapse_"+what_form)
@@ -122,7 +127,7 @@
                     style: "width: 109px; height: 50px; padding: 0em ;margin-center: 50px;"
                   }).append($("<div/>").addClass("card card-body").attr({
                     style: "width: 108px; height: 50px; padding: 0.5em ;"
-                  }).append(create_group_form(input_value,what_form,input_value+"_"+what_form))
+                  }).append(create_group_form(input_value,what_form,input_value+"_"+what_form,input_value+"_tool_bar_"+what_form))
                   ))
               
               
@@ -131,8 +136,12 @@
           )   
       )
   );
+  $( "#"+input_value+"_tool_bar_"+what_form ).droppable({
+    classes: {
+      "ui-droppable-hover": "ui-state-hover"
+    }});
  };
- function create_group_form(name,form,box){
+ function create_group_form(name,form,box,tool_bar){
   return $("<form/>").addClass("form-inline").append(
             $("<div/>").addClass(name+"group"+form+" mb-1")
             .append(
@@ -144,26 +153,30 @@
               }),$("<button/>").attr({
                 type: "button",
                 class: "btn btn-primary btn-sm mb-1",
-                onclick: "create_buttons('"+box+"','"+name+"group"+form+"_input')"
+                onclick: "create_buttons('"+box+"','"+name+"group"+form+"_input','"+tool_bar+"')"
               }).prepend("Add button")
             )
 
   );
  };
 
- function create_buttons(box_name,from_form){
+ function create_buttons(box_name,from_form,tool_bar){
   button_id=document.getElementById(from_form).value;
   $("#"+box_name).append($("<div/>").attr({
     id:button_id+"box",
-    style: "width: 50px; height: 50px; padding: 0.5em ;border: 2px solid lightgrey; border-radius: 5px;"
+    style: "display: inline-flex; padding: 0.5em ;border: 2px solid lightgrey; border-radius: 5px;"
   })
   .append($("<button/>").attr({
     id: button_id,
-    class:"btn btn-primary",
+    class:"btn btn-primary btn-sm mb-1",
     type:"button"
     }).prepend(button_id)
   )
   );
-      $( "#"+button_id+"box" ).draggable({ containment: "#"+box_name, scroll: false ,snap: true,cursor: "move" });   
+      $( "#"+button_id+"box" ).draggable({ containment: "#"+box_name, scroll: false ,snap: true,cursor: "move" ,revert: "valid"}); 
+      $( "#"+button_id+"box" ).droppable({
+        classes: {
+          "ui-droppable-hover": "ui-state-hover"
+        }});
 };
 
