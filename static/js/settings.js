@@ -58,10 +58,6 @@
        $( "#"+e+"_"+forms_name ).draggable({ containment: "#"+warper, scroll: false ,snap: true,cursor: "move",revert: "valid"});   
        $( "#"+e+"_"+forms_name ).resizable({minHeight: 118,
         minWidth: 215});
-        $( "#"+e+"_"+forms_name ).droppable({
-          classes: {
-            "ui-droppable-hover": "ui-state-hover"
-          }});
         
         
 /*
