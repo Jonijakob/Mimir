@@ -64,6 +64,11 @@ def index():
             for the_data in delete_data:
                 group_data.delete_one(the_data)
                 return redirect('/?submit', code=302)
+        elif request.form.get("status")=="addbutton":
+                group={"setting_tab":request.form.get("form"),"name":request.form.get("name")}
+                send_group_data_newbutton={'$set': {'button.{}'.format(request.form.get('button_id')):'test'}}
+                group_data.update(group,send_group_data_newbutton)
+
              
     #render the dom if there is a data
     if mydb.list_collection_names():

@@ -127,7 +127,7 @@
                     style: "width: 109px; height: 50px; padding: 0em ;margin-center: 50px;"
                   }).append($("<div/>").addClass("card card-body").attr({
                     style: "width: 108px; height: 50px; padding: 0.5em ;"
-                  }).append(create_group_form(input_value,what_form,input_value+"_"+what_form,input_value+"_tool_bar_"+what_form))
+                  }).append(create_group_form(input_value,what_form,input_value+"_"+what_form))
                   ))
               
               
@@ -141,7 +141,7 @@
       "ui-droppable-hover": "ui-state-hover"
     }});
  };
- function create_group_form(name,form,box,tool_bar){
+ function create_group_form(name,form,box){
   return $("<form/>").addClass("form-inline").append(
             $("<div/>").addClass(name+"group"+form+" mb-1")
             .append(
@@ -153,14 +153,14 @@
               }),$("<button/>").attr({
                 type: "button",
                 class: "btn btn-primary btn-sm mb-1",
-                onclick: "create_buttons('"+box+"','"+name+"group"+form+"_input','"+tool_bar+"')"
+                onclick: "create_buttons('"+box+"','"+name+"group"+form+"_input','"+form+"','"+name+"')"
               }).prepend("Add button")
             )
 
   );
  };
 
- function create_buttons(box_name,from_form,tool_bar){
+ function create_buttons(box_name,from_form,form,name_){
   button_id=document.getElementById(from_form).value;
   $("#"+box_name).append($("<div/>").attr({
     id:button_id+"box",
@@ -186,21 +186,25 @@
         }});
         
 
-        $("#"+button_id+"box").on('contextmenu', function(e) {
-          
-          $("#"+button_id+"menu").css({
-            display: "block"
-            
-          }).addClass("show");
+      $("#"+button_id+"box").on('contextmenu', function(e) {
+      $("#"+button_id+"menu").css({
+          display: "block"}).addClass("show");
           return false; //blocks default Webbrowser right click menu
         }).on("click", function() {
           $("#"+button_id+"menu").removeClass("show").hide();
         });
         
-        $("#"+button_id+"menu"+" a").on("click", function() {
+          $("#"+button_id+"menu"+" a").on("click", function() {
           $(this).parent().removeClass("show").hide();
-        });
+          });
+
+      $.ajax({
+          type: "POST",
+          url: "http://10.0.0.23:5000/",
+          data: {status:"addbutton",button_id:button_id,name:name_,form:form}
+      });
 };
+
 function delete_buttons(name){
   $("#"+name).remove();
 
