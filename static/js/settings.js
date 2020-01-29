@@ -7,6 +7,7 @@
   //if (typeof push_wifi_value != 'undefined') {
   wifi_value=push_wifi_value;
 //}
+  
     $("div.ui-resizable-handle").remove();
     $("div.ui-resizable-n").remove();
     $(".ui-droppable").droppable({
@@ -17,11 +18,37 @@
     $( "#"+ir_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move",revert: "valid"}),
     $( "#"+ir_name+"_forms" ).resizable({minHeight: 118,
       minWidth: 116});
+      ir_button_data.forEach(function(buttons_ir){
+        $( "#"+Object.keys(buttons_ir)+"box" ).draggable({ containment: "#"+ir_name+"_forms", scroll: false ,snap: true,cursor: "move" ,revert: "valid"});
+        $("#"+Object.keys(buttons_ir)+"box").on('contextmenu', function(e) {
+          $("#"+Object.keys(buttons_ir)+"menu").css({
+            display: "block"}).addClass("show");
+            return false; //blocks default Webbrowser right click menu
+            }).on("click", function() {
+            $("#"+Object.keys(buttons_ir)+"menu").removeClass("show").hide();
+            });
+            $("#"+Object.keys(buttons_ir)+"menu"+" a").on("click", function() {
+            $(this).parent().removeClass("show").hide();
+            });
+        });
   });
   wifi_value.forEach(function(wifi_name){
     $( "#"+wifi_name+"_forms2" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move",revert: "valid"}),  
     $( "#"+wifi_name+"_forms2" ).resizable({minHeight: 118,
       minWidth: 116});
+      wifi_button_data.forEach(function(buttons_wifi){
+        $( "#"+Object.keys(buttons_wifi)+"box" ).draggable({ containment: "#"+wifi_name+"_forms2", scroll: false ,snap: true,cursor: "move" ,revert: "valid"});
+        $("#"+Object.keys(buttons_wifi)+"box").on('contextmenu', function(e) {
+          $("#"+Object.keys(buttons_wifi)+"menu").css({
+            display: "block"}).addClass("show");
+            return false; //blocks default Webbrowser right click menu
+            }).on("click", function() {
+            $("#"+Object.keys(buttons_wifi)+"menu").removeClass("show").hide();
+            });
+            $("#"+Object.keys(buttons_wifi)+"menu"+" a").on("click", function() {
+            $(this).parent().removeClass("show").hide();
+            });
+        });
   });
   function sumbitcommand(forms_name,warper){
     var value_input = document.getElementById(forms_name).value;
@@ -173,8 +200,11 @@
     }).prepend(button_id).append($("<div/>").attr({
       class:"dropdown-menu dropdown-menu-sm",
       id: button_id+"menu"})
-    .append($("<a/>").attr({class:"dropdown-item", herf:"#"}).prepend("edit"),$("<a/>").attr(
-      {class:"dropdown-item", onclick:"delete_buttons('"+button_id+"box')"}).prepend("remove")
+    .append($("<a/>").attr({type:"button",class:"dropdown-item"}).attr("data-toggle","modal").attr("data-target","#button_settings")
+    .attr("data-whatever",name_+" "+button_id+" button")
+    .attr("data-key",form)
+    .prepend("edit"),
+    $("<a/>").attr({class:"dropdown-item", onclick:"delete_buttons('"+button_id+"box')"}).prepend("remove")
     ))
   )
   );

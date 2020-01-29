@@ -74,18 +74,35 @@ def index():
     if mydb.list_collection_names():
         data_web_back=web_data.find_one()
         ir_settings_data=[]
+        ir_buttons_data=[]
         wifi_settings_data=[]
-        for data_group_back in group_data.find({},{ "_id": 0, "setting_tab": 1, "name": 1 }):
+        wifi_buttons_data=[]
+        for data_group_back in group_data.find({},{ "_id": 0, "setting_tab": 1, "name": 1,"button":1}):
             if data_group_back["setting_tab"]=="forms":
                 ir_settings_data.append(data_group_back["name"])
+                try: 
+                    data_group_back["button"]
+                except:
+                    print("not ir button")
+                else:
+                    ir_buttons_data.append(data_group_back["button"])
             elif data_group_back["setting_tab"]=="forms2":
                 wifi_settings_data.append(data_group_back["name"])
+                try: 
+                    data_group_back["button"]
+                except:
+                    print("not wifi button")
+                else:
+                    wifi_buttons_data.append(data_group_back["button"])
         if bool(data_web_back)==True or bool(ir_settings_data)==True  or bool(wifi_settings_data)==True :     
             return render_template('index.jinja2',
             ir_settings_page_store=data_web_back["ir_settings_page_store"],
             wifi_settings_page_store=data_web_back["wifi_settings_page_store"],
             ir_settings_data=ir_settings_data,
-            wifi_settings_data=wifi_settings_data)
+            wifi_settings_data=wifi_settings_data,
+            ir_buttons_data=ir_buttons_data,
+            wifi_buttons_data=wifi_buttons_data
+            )
         
             
     return render_template('index.jinja2')
