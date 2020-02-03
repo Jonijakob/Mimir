@@ -201,8 +201,9 @@
       class:"dropdown-menu dropdown-menu-sm",
       id: button_id+"menu"})
     .append($("<a/>").attr({type:"button",class:"dropdown-item"}).attr("data-toggle","modal").attr("data-target","#button_settings")
-    .attr("data-whatever",name_+" "+button_id+" button")
-    .attr("data-key",form)
+    .attr("data-group_name",name_)
+    .attr("data-tab_name",form)
+    .attr("data-button_name",button_id)
     .prepend("edit"),
     $("<a/>").attr({class:"dropdown-item", onclick:"delete_buttons('"+button_id+"box')"}).prepend("remove")
     ))
