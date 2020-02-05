@@ -1,23 +1,54 @@
 
     var Ir_value=[];
   var wifi_value=[];
-  //if (typeof push_Ir_value != 'undefined') {
+  //if (typeof push_Ir_value != 'undefined') 
     Ir_value=push_Ir_value;
   //}
   //if (typeof push_wifi_value != 'undefined') {
   wifi_value=push_wifi_value;
 //}
-    $("div.ui-resizable-handle").remove(),
-    $("div.ui-resizable-n").remove(),
+  
+    $("div.ui-resizable-handle").remove();
+    $("div.ui-resizable-n").remove();
+    $(".ui-droppable").droppable({
+      classes: {
+        "ui-droppable-hover": "ui-state-hover"
+      }});
   Ir_value.forEach(function(ir_name){
-    $( "#"+ir_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move" }),
+    $( "#"+ir_name+"_forms" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: true,cursor: "move",revert: "valid"}),
     $( "#"+ir_name+"_forms" ).resizable({minHeight: 118,
       minWidth: 116});
+      ir_button_data.forEach(function(buttons_ir){
+        $( "#"+Object.keys(buttons_ir)+"box" ).draggable({ containment: "#"+ir_name+"_forms", scroll: false ,snap: true,cursor: "move" ,revert: "valid"});
+        $("#"+Object.keys(buttons_ir)+"box").on('contextmenu', function(e) {
+          $("#"+Object.keys(buttons_ir)+"menu").css({
+            display: "block"}).addClass("show");
+            return false; //blocks default Webbrowser right click menu
+            }).on("click", function() {
+            $("#"+Object.keys(buttons_ir)+"menu").removeClass("show").hide();
+            });
+            $("#"+Object.keys(buttons_ir)+"menu"+" a").on("click", function() {
+            $(this).parent().removeClass("show").hide();
+            });
+        });
   });
   wifi_value.forEach(function(wifi_name){
-    $( "#"+wifi_name+"_forms2" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move" }),  
+    $( "#"+wifi_name+"_forms2" ).draggable({ containment: "#containment-wrapper2", scroll: false ,snap: true,cursor: "move",revert: "valid"}),  
     $( "#"+wifi_name+"_forms2" ).resizable({minHeight: 118,
       minWidth: 116});
+      wifi_button_data.forEach(function(buttons_wifi){
+        $( "#"+Object.keys(buttons_wifi)+"box" ).draggable({ containment: "#"+wifi_name+"_forms2", scroll: false ,snap: true,cursor: "move" ,revert: "valid"});
+        $("#"+Object.keys(buttons_wifi)+"box").on('contextmenu', function(e) {
+          $("#"+Object.keys(buttons_wifi)+"menu").css({
+            display: "block"}).addClass("show");
+            return false; //blocks default Webbrowser right click menu
+            }).on("click", function() {
+            $("#"+Object.keys(buttons_wifi)+"menu").removeClass("show").hide();
+            });
+            $("#"+Object.keys(buttons_wifi)+"menu"+" a").on("click", function() {
+            $(this).parent().removeClass("show").hide();
+            });
+        });
   });
   function sumbitcommand(forms_name,warper){
     var value_input = document.getElementById(forms_name).value;
@@ -53,27 +84,14 @@
       }
         
        
-      $("#"+warper).append(
-        $('<div/>')
-          .attr("id", e+"_"+forms_name)
-          .attr("style","position: absolute; left: 955px; top: 124px;")
-          .addClass("ui-widget-content")
-          .append($("<div/>").attr("id",e+"_tool_bar_"+forms_name)
-              .append($("<div/>").attr("id",e+"_button_group_"+forms_name).addClass("float-right btn-group btn-group-sm").attr("role","group")
-                .append($("<button/>").attr("id",e+"_button_edit"+forms_name).addClass("btn btn-secondary")
-                  .append($("<i/>").addClass("fa fa-bars")),
-                $("<button/>").attr("onclick","remove_group('"+e+"_"+forms_name+"','"+e+"','"+forms_name+"')").attr("id",e+"_button_remove"+forms_name).addClass("btn btn-secondary")
-                  .append($("<i/>").addClass("fa fa-trash"))),
-              
-                $("<span/>").addClass("badge badge-secondary").text(e)
-                
-              )   
-          )
-      );
-              
-       $( "#"+e+"_"+forms_name ).draggable({ containment: "#"+warper, scroll: false ,snap: true,cursor: "move" });   
+      
+      render(warper,e,forms_name);   
+       $( "#"+e+"_"+forms_name ).draggable({ containment: "#"+warper, scroll: false ,snap: true,cursor: "move",revert: "valid"});   
        $( "#"+e+"_"+forms_name ).resizable({minHeight: 118,
-        minWidth: 116});
+        minWidth: 215});
+        
+        
+
        body = $( "#"+e+"_"+forms_name ).parent().html();
        $.ajax({
        type: "POST",
@@ -104,13 +122,125 @@
         });
   };
 
- /* $('#add').click(function() {
-    myhtml = $("#containment-wrapper").html();
-    $.ajax({
-        type: "POST",
-        url: "http://10.0.0.23:5000/",
-        data: {html:myhtml} // made into a hash for retrieval
-    });
-    
-});*/
+ function render(warper_name,input_value,what_form){
+  $("#"+warper_name).append(
+    $('<div/>')
+      .attr({
+        id: input_value+"_"+what_form,
+        style:"position: absolute; left: 806px; top: 125px;",
+        class:"ui-widget-content"})
+      .append(
+        $("<div/>").attr("id",input_value+"_tool_bar_"+what_form)
+          .append($("<span/>").addClass("badge badge-secondary").text(input_value),
+            $("<div/>").attr({
+              id: input_value+"_button_group_"+what_form,
+              class:"float-right btn-group btn-group-sm",
+              role:"group"})
+            .append(
+              $("<button/>").attr({
+                  id: input_value+"_button_edit"+what_form,
+                  class:"btn btn-secondary",
+                  type:"button"
+                  }).attr("data-toggle","collapse").attr("data-target","#"+input_value+"_collapse_"+what_form).attr("aria-expandeda-","false")
+                    .attr("aria-controls",input_value+"_collapse_"+what_form)
+                  .append($("<i/>").addClass("fa fa-bars")),
+              $("<button/>").attr({
+                  id: input_value+"_button_remove"+what_form,
+                  onclick:"remove_group('"+input_value+"_"+what_form+"','"+input_value+"','"+what_form+"')",
+                  class:"btn btn-secondary"}).append($("<i/>").addClass("fa fa-trash")),
+                  $("<div/>").attr({
+                    class: "collapse",
+                    id: input_value+"_collapse_"+what_form,
+                    style: "width: 109px; height: 50px; padding: 0em ;margin-center: 50px;"
+                  }).append($("<div/>").addClass("card card-body").attr({
+                    style: "width: 108px; height: 50px; padding: 0.5em ;"
+                  }).append(create_group_form(input_value,what_form,input_value+"_"+what_form))
+                  ))
+              
+              
+
+            
+          )   
+      )
+  );
+  $( "#"+input_value+"_tool_bar_"+what_form ).droppable({
+    classes: {
+      "ui-droppable-hover": "ui-state-hover"
+    }});
+ };
+ function create_group_form(name,form,box){
+  return $("<form/>").addClass("form-inline").append(
+            $("<div/>").addClass(name+"group"+form+" mb-1")
+            .append(
+              $("<input/>").attr({
+                type: "text",
+                class: "form-control form-control-sm",
+                id: name+"group"+form+"_input",
+                style: "width: 90px; height: 30px; padding: 0.5em ;"
+              }),$("<button/>").attr({
+                type: "button",
+                class: "btn btn-primary btn-sm mb-1",
+                onclick: "create_buttons('"+box+"','"+name+"group"+form+"_input','"+form+"','"+name+"')"
+              }).prepend("Add button")
+            )
+
+  );
+ };
+
+ function create_buttons(box_name,from_form,form,name_){
+  button_id=document.getElementById(from_form).value;
+  $("#"+box_name).append($("<div/>").attr({
+    id:button_id+"box",
+    style: "display: inline-flex; padding: 0.5em ;border: 2px solid lightgrey; border-radius: 5px;"
+  })
+  .append($("<button/>").attr({
+    id: button_id,
+    class:"btn btn-primary btn-sm mb-1",
+    type:"button",
+    onclick:"button_excute('"+button_id+"','"+form+"','"+name_+"')"
+    }).prepend(button_id).append($("<div/>").attr({
+      class:"dropdown-menu dropdown-menu-sm",
+      id: button_id+"menu"})
+    .append($("<a/>").attr({type:"button",class:"dropdown-item"}).attr("data-toggle","modal").attr("data-target","#button_settings")
+    .attr("data-group_name",name_)
+    .attr("data-tab_name",form)
+    .attr("data-button_name",button_id)
+    .prepend("edit"),
+    $("<a/>").attr({class:"dropdown-item", onclick:"delete_buttons('"+button_id+"box')"}).prepend("remove")
+    ))
+  )
+  );
+  
+      $( "#"+button_id+"box" ).draggable({ containment: "#"+box_name, scroll: false ,snap: true,cursor: "move" ,revert: "valid"}); 
+      $( "#"+button_id+"box" ).droppable({
+        classes: {
+          "ui-droppable-hover": "ui-state-hover"
+        }});
+        
+
+      $("#"+button_id+"box").on('contextmenu', function(e) {
+      $("#"+button_id+"menu").css({
+          display: "block"}).addClass("show");
+          return false; //blocks default Webbrowser right click menu
+        }).on("click", function() {
+          $("#"+button_id+"menu").removeClass("show").hide();
+        });
+        
+          $("#"+button_id+"menu"+" a").on("click", function() {
+          $(this).parent().removeClass("show").hide();
+          });
+
+      $.ajax({
+          type: "POST",
+          url: "http://10.0.0.23:5000/",
+          data: {status:"addbutton",button_id:button_id,name:name_,form:form}
+      });
+};
+
+function delete_buttons(name){
+  $("#"+name).remove();
+
+};
+
+
 

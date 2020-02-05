@@ -11,6 +11,7 @@
     {% if ir_settings_data %}
         <script>
           var push_Ir_value=JSON.parse('{{ ir_settings_data | tojson | safe}}');
+          var ir_button_data=JSON.parse('{{ ir_buttons_data | tojson | safe}}');
         </script>
     {% endif %}
 

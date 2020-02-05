@@ -1,6 +1,6 @@
 
 <style>
-  .ui-widget-content { width: 160px; height: 160px; padding: 0.5em; float: left; margin: 0 10px 10px 0; border: 2px solid lightgrey; border-radius: 5px; }
+  .ui-widget-content { width: 215px; height: 118px; padding: 0.5em; float: left; margin: 0 10px 10px 0; border: 2px solid lightgrey; border-radius: 5px; }
   #containment-wrapper { width: 95%; height:500px; border:2px solid #ccc; padding: 10px; }
   #containment-wrapper2 { width: 95%; height:500px; border:2px solid #ccc; padding: 10px; }
   h3 { clear: left; }
@@ -27,6 +27,7 @@
 <div class="tab-content" id="myTabContent">
 {% include 'settings/ir_remote_settings.jinja2' %}
 {% include 'settings/wifi_remote_settings.jinja2' %}
+{% include 'settings/button_settings.jinja2' %}
 </div>
  
         <div class="modal-footer">
@@ -38,7 +39,5 @@
   </form>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
   <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/buttons_press.js') }}"></script>
