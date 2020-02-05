@@ -196,7 +196,8 @@
   .append($("<button/>").attr({
     id: button_id,
     class:"btn btn-primary btn-sm mb-1",
-    type:"button"
+    type:"button",
+    onclick:"button_excute('"+button_id+"','"+form+"','"+name_+"')"
     }).prepend(button_id).append($("<div/>").attr({
       class:"dropdown-menu dropdown-menu-sm",
       id: button_id+"menu"})

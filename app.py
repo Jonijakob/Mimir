@@ -3,6 +3,7 @@ from flask import *
 from flask import Flask, render_template
 import pymongo
 from cryptography.fernet import Fernet
+import requests
 
 with open('/home/pi/Mimir_database_data/Mimir_db.key', 'rb') as key_got,open('Mimir_db_uri.encrypted', 'rb') as uri_got:
     key = key_got.read()
@@ -68,8 +69,16 @@ def index():
                 group={"setting_tab":request.form.get("form"),"name":request.form.get("name")}
                 send_group_data_newbutton={'$set': {'button.{}'.format(request.form.get('button_id')):'test'}}
                 group_data.update(group,send_group_data_newbutton)
-
-             
+        elif request.form.get("status")=="save_button_value":
+                button_data_value=f.encrypt(request.form.get('button_code').encode())
+                group={"setting_tab":request.form.get("from_where"),"name":request.form.get("group_name")}
+                send_group_button_value={'$set':{'button.{}'.format(request.form.get("button_id")):button_data_value}}
+                group_data.update(group,send_group_button_value)
+        elif request.form.get("status")=="run_button_value":
+            code="button."+request.form.get("button_id")
+            excute_group_data=group_data.find_one({"setting_tab":request.form.get("tab"),"name":request.form.get("group_name"),code:{ "$exists": True }},{ "_id": 0,"setting_tab":0,"name": 0})
+            excute_data=f.decrypt(excute_group_data["button"][request.form.get("button_id")].encode())
+            requests.post(excute_data)
     #render the dom if there is a data
     if mydb.list_collection_names():
         data_web_back=web_data.find_one()
