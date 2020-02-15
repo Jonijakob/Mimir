@@ -8,6 +8,6 @@ on a raspberry pi server
 - secure all the data in database.
 ##### support :
 -webhooks  
--ir devices  
+-ir smart controlers devices  
 ## Development:
 - ir record signals and transmite
