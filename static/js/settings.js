@@ -37,17 +37,21 @@
     $( "#"+wifi_name+"_forms2" ).resizable({minHeight: 118,
       minWidth: 116});
       wifi_button_data.forEach(function(buttons_wifi){
-        $( "#"+Object.keys(buttons_wifi)+"box" ).draggable({ containment: "#"+wifi_name+"_forms2", scroll: false ,snap: true,cursor: "move" ,revert: "valid"});
-        $("#"+Object.keys(buttons_wifi)+"box").on('contextmenu', function(e) {
-          $("#"+Object.keys(buttons_wifi)+"menu").css({
+       var list_buttons = Object.keys(buttons_wifi);
+       list_buttons.forEach(function(obbi){
+       
+        $( "#"+obbi+"box" ).draggable({ containment: "#"+wifi_name+"_forms2", scroll: false ,snap: true,cursor: "move" ,revert: "valid"});
+        $("#"+obbi+"box").on('contextmenu', function(e) {
+          $("#"+obbi+"menu").css({
             display: "block"}).addClass("show");
             return false; //blocks default Webbrowser right click menu
             }).on("click", function() {
-            $("#"+Object.keys(buttons_wifi)+"menu").removeClass("show").hide();
+            $("#"+obbi+"menu").removeClass("show").hide();
             });
-            $("#"+Object.keys(buttons_wifi)+"menu"+" a").on("click", function() {
+            $("#"+obbi+"menu"+" a").on("click", function() {
             $(this).parent().removeClass("show").hide();
             });
+          });
         });
   });
   function sumbitcommand(forms_name,warper){
