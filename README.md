@@ -13,4 +13,4 @@ on a raspberry pi server
 - ir record signals and transmite
 ## Note :
 i am using mongodb and for securtiy resons make the address with python cryptography library  
-make sure you get a adrress to your database and create to yourself own key beacuse it will not work ..
+make sure you get a address to your database and create to yourself own key otherwise it will not work ..
