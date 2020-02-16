@@ -1,12 +1,9 @@
 
-    var Ir_value=[];
+  var Ir_value=[];
   var wifi_value=[];
-  //if (typeof push_Ir_value != 'undefined') 
     Ir_value=push_Ir_value;
-  //}
-  //if (typeof push_wifi_value != 'undefined') {
-  wifi_value=push_wifi_value;
-//}
+    wifi_value=push_wifi_value;
+
   
     $("div.ui-resizable-handle").remove();
     $("div.ui-resizable-n").remove();
@@ -100,7 +97,7 @@
        $.ajax({
        type: "POST",
        url: "http://10.0.0.23:5000/",
-       data: {status:"creat",forms_id:forms_name,group_html:body,name:e} // made into a hash for retrieval
+       data: {status:"creat",forms_id:forms_name,group_html:body,name:e} 
     });
               
             
